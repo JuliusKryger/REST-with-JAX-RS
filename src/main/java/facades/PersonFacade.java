@@ -1,31 +1,41 @@
 package facades;
 
 import dtos.PersonDTO;
-import dtos.PersonsDTO;
 import entities.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
-public class PersonFacade implements IPersonFacade {
-
+public class PersonFacade implements IPersonFacade
+{
     private static EntityManagerFactory emf;
     private static PersonFacade instance;
 
     //Private Constructor to ensure Singleton
-    private PersonFacade () {}
+    private PersonFacade ()
+    {
+    }
 
-    public static PersonFacade getPersonFacade(EntityManagerFactory _emf) {
-        if (instance == null) {
+    public static PersonFacade getPersonFacade(EntityManagerFactory _emf)
+    {
+        if (instance == null)
+        {
             emf = _emf;
             instance = new PersonFacade();
         }
         return instance;
     }
 
+    private EntityManager getEntityManager()
+    {
+        return emf.createEntityManager();
+    }
+
     @Override
-    public PersonDTO addPerson(String fName, String lName, String phone) {
+    public PersonDTO addPerson(String fName, String lName, String phone)
+    {
         EntityManager em = emf.createEntityManager();
         PersonDTO stupidPerson;
         stupidPerson = new PersonDTO(new Person(fName,lName,phone));
@@ -43,12 +53,14 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public PersonDTO deletePerson(int id) {
+    public PersonDTO deletePerson(int id)
+    {
         return null;
     }
 
     @Override
-    public PersonDTO getPerson(int id) {
+    public PersonDTO getPerson(int id)
+    {
         EntityManager em = emf.createEntityManager();
         try
         {
@@ -62,13 +74,13 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public PersonsDTO getAllPersons() {
-        EntityManager em = emf.createEntityManager();
+    public List<Person> getAllPersons()
+    {
+        EntityManager em = getEntityManager();
         try
         {
-            TypedQuery<Person> query =
-                    em.createQuery("Select person from Person person",Person.class);
-            return (PersonsDTO) query.getResultList();
+            TypedQuery<Person> query = em.createQuery("Select person from Person person",Person.class);
+            return query.getResultList();
         }
         finally
         {
@@ -77,7 +89,8 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public PersonDTO editPerson(PersonDTO p) {
+    public PersonDTO editPerson(PersonDTO p)
+    {
         return null;
     }
 }

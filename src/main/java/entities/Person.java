@@ -5,18 +5,13 @@ import java.util.Date;
 
 @Table(name = "person")
 @Entity
-public class Person {
-
-    //firstName, lastName, phone (String), created, lastEdited (java.utils.Date) and id (Integer).
-
-    //For the REST-endpoints that returns a Person, the JSON object should be built like this (observe the absence of the two date-fields):
-
-    //{"fName":"Kurt","lName":"Wonnegut", phone:"12345678","id":0}
-
-
+@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person")
+public class Person
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+
     private Integer id;
     private String firstName;
     private String lastName;
@@ -24,7 +19,8 @@ public class Person {
     private Date created;
     private Date lastEdited;
 
-    public Person(String firstName, String lastName, String phone, Date created, Date lastEdited) {
+    public Person(String firstName, String lastName, String phone, Date created, Date lastEdited)
+    {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -32,61 +28,74 @@ public class Person {
         this.lastEdited = lastEdited;
     }
 
-    public Person() {
-
+    public Person()
+    {
     }
 
-    public Person(String firstName, String lastName, String phone) {
+    public Person(String firstName, String lastName, String phone)
+    {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
-    public String getPhone() {
+    public String getPhone()
+    {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone)
+    {
         this.phone = phone;
     }
 
-    public Date getCreated() {
+    public Date getCreated()
+    {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Date created)
+    {
         this.created = created;
     }
 
-    public Date getLastEdited() {
+    public Date getLastEdited()
+    {
         return lastEdited;
     }
 
-    public void setLastEdited(Date lastEdited) {
+    public void setLastEdited(Date lastEdited)
+    {
         this.lastEdited = lastEdited;
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer id)
+    {
         this.id = id;
     }
 }
